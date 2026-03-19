@@ -1,10 +1,12 @@
 package ro.ulbs.proiectaresoftware.students;
+import java.util.HashSet;
+import java.util.Set;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Appliction {
-    public static void main(){
+    public static void main(String[] args){
         Student s1 = new Student(112, "Ioan", "Popa", "TI21/1");
         Student s2 = new Student(112, "Maria", "Oprea", "TI21/1");
         Student s3 = new Student(120, "Alis", "Popa", "TI21/2");
@@ -15,7 +17,7 @@ public class Appliction {
         System.out.println(s3);
         System.out.println(s4);
         System.out.println(s5);
-        List<Student> listaStudenti=new ArrayList<>();
+        Set<Student> listaStudenti = new HashSet<Student>();
         listaStudenti.add(new Student(112, "Ioan", "Popa", "TI21/1"));
         listaStudenti.add(new Student(112, "Maria", "Oprea", "TI21/1"));
         listaStudenti.add(new Student(120, "Alis", "Popa", "TI21/2"));
