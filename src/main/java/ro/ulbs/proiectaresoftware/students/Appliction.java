@@ -54,7 +54,10 @@ public class Appliction {
             for (Student s : listaStudenti) {
                 System.out.println(s);
             }
-            listaStudenti.sort(Comparator.comparing(Student::getNume));
+            listaStudenti.sort(
+                    Comparator.comparing(Student::getFormatieDeStudiu)
+                            .thenComparing(Student::getNume)
+            );
             List<String> linesOut = new ArrayList<>();
 
             for (Student s : listaStudenti) {
@@ -65,10 +68,10 @@ public class Appliction {
 
                 linesOut.add(linie);
             }
-            Path outPath = Paths.get("studenti_out.txt");
+            Path outPath = Paths.get("studenti_out_sorted.txt");
             Files.write(outPath, linesOut);
 
-            System.out.println("\nSalvat in studenti_out.txt");
+            System.out.println("\nSalvat in studenti_out_sorted.txt");
 
         } catch (IOException e) {
             e.printStackTrace();
