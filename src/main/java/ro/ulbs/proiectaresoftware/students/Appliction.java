@@ -1,9 +1,9 @@
 package ro.ulbs.proiectaresoftware.students;
-import java.util.HashSet;
-import java.util.Set;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
 
 public class Appliction {
     public static void main(String[] args){
@@ -17,21 +17,62 @@ public class Appliction {
         System.out.println(s3);
         System.out.println(s4);
         System.out.println(s5);
-        Set<Student> listaStudenti = new HashSet<Student>();
-        listaStudenti.add(new Student(112, "Ioan", "Popa", "TI21/1"));
-        listaStudenti.add(new Student(112, "Maria", "Oprea", "TI21/1"));
-        listaStudenti.add(new Student(120, "Alis", "Popa", "TI21/2"));
-        listaStudenti.add(new Student(122, "Mihai", "Vecerdea", "TI22/1"));
-        listaStudenti.add(new Student(122, "Eugen", "Uritescu", "TI22/2"));
+        Set<Student> setStudenti = new HashSet<>();
+        setStudenti.add(new Student(112, "Ioan", "Popa", "TI21/1"));
+        setStudenti.add(new Student(112, "Maria", "Oprea", "TI21/1"));
+        setStudenti.add(new Student(120, "Alis", "Popa", "TI21/2"));
+        setStudenti.add(new Student(122, "Mihai", "Vecerdea", "TI22/1"));
+        setStudenti.add(new Student(122, "Eugen", "Uritescu", "TI22/2"));
 
-        for(Student s:listaStudenti)
+        for(Student s:setStudenti)
             System.out.println(s);
 
         Student s6 = new Student(120, "Alis", "Popa", "TI21/2");
-        boolean exista = listaStudenti.contains(s6);
+        boolean exista = setStudenti.contains(s6);
         System.out.println("Studentul: "+s6+" exista:"+exista);
         Student s7=new Student(112, "Maria", "Popa", "TI21/1");
-        exista=listaStudenti.contains(s7);
+        exista=setStudenti.contains(s7);
         System.out.println("Studentul: "+s7+" exista:"+exista);
+
+        Path path = Paths.get("studenti_in.txt");
+
+        try {
+            List<Student> listaStudenti = new ArrayList<>();
+            List<String> lines = Files.readAllLines(path);
+            for (String line : lines) {
+                String[] campuri = line.split(",");
+
+                int nrMatricol = Integer.parseInt(campuri[0]);
+                String prenume = campuri[1];
+                String nume = campuri[2];
+                String formatie = campuri[3];
+
+                Student s = new Student(nrMatricol, prenume, nume, formatie);
+                listaStudenti.add(s);
+            }
+            System.out.println("Studenti cititi:");
+            for (Student s : listaStudenti) {
+                System.out.println(s);
+            }
+            listaStudenti.sort(Comparator.comparing(Student::getNume));
+            List<String> linesOut = new ArrayList<>();
+
+            for (Student s : listaStudenti) {
+                String linie = s.getNumarMatricol() + "," +
+                        s.getPrenume() + "," +
+                        s.getNume() + "," +
+                        s.getFormatieDeStudiu();
+
+                linesOut.add(linie);
+            }
+            Path outPath = Paths.get("studenti_out.txt");
+            Files.write(outPath, linesOut);
+
+            System.out.println("\nSalvat in studenti_out.txt");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        }
     }
-}
+
