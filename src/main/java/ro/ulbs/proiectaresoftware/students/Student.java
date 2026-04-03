@@ -7,6 +7,7 @@ public class Student {
     private  String prenume;
     private String nume;
     private String formatieDeStudiu;
+    private float nota;
 
     public Student(int numarMatricol, String prenume, String nume, String formatieDeStudiu) {
         this.numarMatricol = numarMatricol;
@@ -33,7 +34,7 @@ public class Student {
 
     @Override
     public String toString() {
-        return  String.format("%-10d %-12s %-12s %-10s", numarMatricol,prenume,nume,formatieDeStudiu);
+        return  String.format( numarMatricol+", "+prenume+", "+nume+", "+formatieDeStudiu+", "+nota);
     }
 
     @Override
@@ -45,10 +46,15 @@ public class Student {
                 Objects.equals(prenume, student.prenume) &&
                 Objects.equals(nume, student.nume) &&
                 Objects.equals(formatieDeStudiu, student.formatieDeStudiu);
+
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(numarMatricol, prenume, nume, formatieDeStudiu);
+    }
+
+    public void setNota(float nota) {
+        this.nota = nota;
     }
 }
