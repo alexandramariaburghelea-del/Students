@@ -99,10 +99,31 @@ public class Appliction {
             for (Student s : mapStudenti.values()) {
                 System.out.println(s);
             }
+
+            float notaM=gasesteNota("Bianca","Popescu",mapStudenti);
+            float notaN=gasesteNota("Ioan","Popa",mapStudenti);
+
+            System.out.println("\nNota Bianca Popescu: " + notaM);
+            System.out.println("\nNota Ioan Popa: " + notaN);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+    }
+    public static float gasesteNota(String prenume, String nume, Map<Integer, Student> tineri){
+        Map<String, Student> mapNume=new HashMap<>();
+        for(Student s:tineri.values()){
+            String cheie=s.getPrenume()+"-"+ s.getNume();
+            mapNume.put(cheie,s);
+
+        }
+
+        String cheieCautata=prenume+"-"+nume;
+        Student s=mapNume.get(cheieCautata);
+
+        if(s!=null){return s.getNota();}
+        return 0.0f;
     }
 }
 

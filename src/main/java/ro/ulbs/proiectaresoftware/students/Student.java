@@ -57,4 +57,5 @@ public class Student {
     public void setNota(float nota) {
         this.nota = nota;
     }
+    public float getNota() {return nota;}
 }
