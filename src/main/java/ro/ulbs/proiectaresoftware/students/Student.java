@@ -7,13 +7,17 @@ public class Student {
     private  String prenume;
     private String nume;
     private String formatieDeStudiu;
-    private float nota;
+    private double nota;
 
-    public Student(int numarMatricol, String prenume, String nume, String formatieDeStudiu) {
+    public Student(int numarMatricol, String prenume, String nume, String formatieDeStudiu,double nota) {
         this.numarMatricol = numarMatricol;
         this.prenume = prenume;
         this.nume = nume;
         this.formatieDeStudiu = formatieDeStudiu;
+        this.nota=nota;
+    }
+    public Student(int numarMatricol, String prenume, String nume, String formatieDeStudiu) {
+        this(numarMatricol, prenume, nume, formatieDeStudiu, 0);
     }
 
     public int getNumarMatricol() {
@@ -54,8 +58,8 @@ public class Student {
         return Objects.hash(numarMatricol, prenume, nume, formatieDeStudiu);
     }
 
-    public void setNota(float nota) {
+    public void setNota(double nota) {
         this.nota = nota;
     }
-    public float getNota() {return nota;}
+    public double getNota() {return nota;}
 }

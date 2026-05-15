@@ -100,8 +100,8 @@ public class Appliction {
                 System.out.println(s);
             }
 
-            float notaM=gasesteNota("Bianca","Popescu",mapStudenti);
-            float notaN=gasesteNota("Ioan","Popa",mapStudenti);
+            double notaM = gasesteNota("Bianca", "Popescu", mapStudenti);
+            double notaN = gasesteNota("Ioan", "Popa", mapStudenti);
 
             System.out.println("\nNota Bianca Popescu: " + notaM);
             System.out.println("\nNota Ioan Popa: " + notaN);
@@ -110,20 +110,56 @@ public class Appliction {
             e.printStackTrace();
         }
 
+
+        //lab5
+        List<StudentBursier> bursieri = new ArrayList<>();
+
+        bursieri.add(new StudentBursier(1025, "Andrei", "Popa", "ISM141/2", 8.70, 725.50));
+        bursieri.add(new StudentBursier(1024, "Ioan", "Mihalcea", "ISM141/1", 9.80, 801.10));
+        bursieri.add(new StudentBursier(1026, "Anamaria", "Prodan", "TI131/1", 8.90, 745.50));
+        bursieri.add(new StudentBursier(1029, "Bianca", "Popescu", "TI131/1", 9.10, 780.80));
+
+        for (StudentBursier b : bursieri) {
+            System.out.println(b);
+        }
+        salveazaInFisier("bursieri_out.txt", bursieri);
+
     }
-    public static float gasesteNota(String prenume, String nume, Map<Integer, Student> tineri){
-        Map<String, Student> mapNume=new HashMap<>();
-        for(Student s:tineri.values()){
-            String cheie=s.getPrenume()+"-"+ s.getNume();
-            mapNume.put(cheie,s);
+
+        public static double gasesteNota (String prenume, String nume, Map < Integer, Student > tineri){
+            Map<String, Student> mapNume = new HashMap<>();
+            for (Student s : tineri.values()) {
+                String cheie = s.getPrenume() + "-" + s.getNume();
+                mapNume.put(cheie, s);
+
+            }
+
+            String cheieCautata = prenume + "-" + nume;
+            Student s = mapNume.get(cheieCautata);
+
+            if (s != null) {
+                return s.getNota();
+            }
+            return 0.0;
+
 
         }
+        public static void salveazaInFisier (String numeFisier, Collection < ? extends Student > colectie){
+            List<String> lines = new ArrayList<>();
 
-        String cheieCautata=prenume+"-"+nume;
-        Student s=mapNume.get(cheieCautata);
+            for (Student s : colectie) {
+                lines.add(s.toString());
+            }
 
-        if(s!=null){return s.getNota();}
-        return 0.0f;
-    }
+            try {
+                Files.write(Paths.get(numeFisier), lines);
+                System.out.println("Salvat in fisier: " + numeFisier);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+
 }
 
