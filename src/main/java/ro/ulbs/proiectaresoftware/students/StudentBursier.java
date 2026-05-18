@@ -9,7 +9,7 @@ public class StudentBursier extends Student {
         this.cuantumBursa=cuantumBursa;
     }
 
-    public double getcuantumBursa() {return cuantumBursa;}
+    public double getCuantumBursa() {return cuantumBursa;}
 
     @Override
     public boolean equals(Object o) {
