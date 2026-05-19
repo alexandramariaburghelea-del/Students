@@ -6,6 +6,8 @@ import java.nio.file.Paths;
 import java.sql.SQLOutput;
 import java.util.*;
 
+import static ro.ulbs.proiectaresoftware.students.Student.imparteInDouaFormatii;
+
 public class Appliction {
     public static void main(String[] args) {
         Student s1 = new Student(112, "Ioan", "Popa", "TI21/1");
@@ -92,7 +94,7 @@ public class Appliction {
 
                 Student s = mapStudenti.get(nr); // 🔥 O(1)
                 if (s != null) {
-                    s.setNota(nota);
+                    //s.setNota(nota);
                 }
             }
             System.out.println("\nStudenti cu note:");
@@ -124,6 +126,13 @@ public class Appliction {
             System.out.println(b);
         }
         salveazaInFisier("bursieri_out.txt", bursieri);
+
+        //lab7
+        setStudenti = imparteInDouaFormatii(setStudenti, "TI 211_1", "TI 211_2");
+        System.out.println("\nDupa impartire:");
+        for (Student s : setStudenti) {
+            System.out.println(s);
+        }
 
         //lab9
         List<Student> studentiCuNote = Arrays.asList(

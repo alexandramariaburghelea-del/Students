@@ -1,13 +1,13 @@
 package ro.ulbs.proiectaresoftware.students;
 
-import java.util.Objects;
+import java.util.*;
 
 public class Student {
-    private int numarMatricol;
-    private  String prenume;
-    private String nume;
-    private String formatieDeStudiu;
-    private double nota;
+    private final int numarMatricol;
+    private final String prenume;
+    private final String nume;
+    private final String formatieDeStudiu;
+    private final double nota;
 
     public Student(int numarMatricol, String prenume, String nume, String formatieDeStudiu,double nota) {
         this.numarMatricol = numarMatricol;
@@ -36,6 +36,35 @@ public class Student {
         return formatieDeStudiu;
     }
 
+    public Student cuFormatieNoua(String formatieNoua){
+        return new Student(numarMatricol, prenume, nume, formatieDeStudiu, nota);
+    }
+
+    static Student schimbaFormatia(Student st, String nouaFormatie) {
+        return st.cuFormatieNoua(nouaFormatie);
+    }
+    static Set<Student> imparteInDouaFormatii(Set<Student> studenti,
+                                              String formatia1,
+                                              String formatia2) {
+
+        List<Student> lista = new ArrayList<>(studenti);
+        Set<Student> rezultat = new HashSet<>();
+
+        int mid = (lista.size() + 1) / 2;
+
+        for (int i = 0; i < lista.size(); i++) {
+            Student s = lista.get(i);
+
+            if (i < mid) {
+                rezultat.add(schimbaFormatia(s, formatia1));
+            } else {
+                rezultat.add(schimbaFormatia(s, formatia2));
+            }
+        }
+
+        return rezultat;
+    }
+
     @Override
     public String toString() {
         return  String.format( numarMatricol+", "+prenume+", "+nume+", "+formatieDeStudiu+", "+nota);
@@ -58,9 +87,9 @@ public class Student {
         return Objects.hash(numarMatricol, prenume, nume, formatieDeStudiu);
     }
 
-    public void setNota(double nota) {
+    /*public void setNota(double nota) {
         this.nota = nota;
-    }
+    }*/
     public double getNota() {return nota;}
 }
 
