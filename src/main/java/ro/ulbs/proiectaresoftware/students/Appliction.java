@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.SQLOutput;
 import java.util.*;
 
 public class Appliction {
@@ -123,6 +124,44 @@ public class Appliction {
             System.out.println(b);
         }
         salveazaInFisier("bursieri_out.txt", bursieri);
+
+        //lab9
+        List<Student> studentiCuNote = Arrays.asList(
+                new Student(1025,"Andrei","Popa","ISM141/2", 8.70),
+                new Student(1024,"Ioan","Mihalcea","ISM141/1", 10),
+                new Student(1026,"Anamaria","Prodan","TI131/1", 8.90),
+                new Student(1029,"Bianca","Popescu","TI131/1,", 10),
+                new Student(1029,"Maria","Pana","TI131/2,", 4.10),
+                new Student(1029,"Gabriela","Mohanu","TI131/2,", 7.33),
+                new Student(1029,"Marius","Nasta","TI131/2,", 3.20),
+                new Student(1029,"Marius","Nasta","TI131/1,", 5.12),
+                new Student(1029,"Andrei","Dobrescu","TI131/2,", 2.22)
+        );
+        //a)
+        System.out.println("Studentii cu 10: ");
+        studentiCuNote.stream().filter(x->x.getNota()==10).forEach(System.out::println);
+
+        //b)
+        System.out.println("Studentii cu nota<5: ");
+        studentiCuNote.stream().filter(x->x.getNota()<5).forEach(System.out::println);
+
+        //c)
+        List<Student> studentiCorectati = studentiCuNote.stream().map(x->new Student(
+                x.getNumarMatricol(),
+                x.getPrenume(),
+                x.getNume(),
+                x.getFormatieDeStudiu(),
+                Math.max(x.getNota(),4))).toList();
+        System.out.println("Studentii corectati: ");
+        studentiCorectati.forEach(System.out::println);
+
+        //d)
+        double suma=studentiCuNote.stream().mapToDouble(Student::getNota).sum();
+        System.out.println("Suma notelor: "+suma);
+
+        //e)
+        double media=suma/studentiCuNote.size();
+        System.out.println("Media: "+media);
 
     }
 
